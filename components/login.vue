@@ -141,6 +141,7 @@
 
 <script setup lang="ts">
 import { string, object } from "yup";
+import { loginSchema } from "~/schema/formsSchema";
 
 const email = ref("adhamsaleh055@gmail.com");
 const password = ref("saleh100200");
@@ -148,10 +149,6 @@ const password = ref("saleh100200");
 const { login, isLoading, error } = useLogin();
 
 // validating login form
-const loginSchema = object({
-  email: string().required("Field is required"),
-  password: string().required("Field is required"),
-});
 
 const { defineInputBinds, values, errorBag, handleSubmit } = useForm({
   validationSchema: loginSchema,

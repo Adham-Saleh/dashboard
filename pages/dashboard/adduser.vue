@@ -29,10 +29,15 @@
         </div>
         <div class="row" v-loading="loading">
           <div v-if="userAdded" class="row">
-            <el-alert
-              :title="`user ${userAdded} add successcfully`"
-              type="success"
-            />
+            <el-alert type="success">
+              <template #title>
+                user {{ userAdded }} add successcfully
+                <NuxtLink to="/dashboard">
+                  dashboard
+                  <i class="bi bi-arrow-up-right"></i>
+                </NuxtLink>
+              </template>
+            </el-alert>
           </div>
           <div class="row">
             <h3 class="fw-bold">Account info</h3>
@@ -189,32 +194,12 @@
 
 <script setup lang="ts">
 import { string, object } from "yup";
+import { ADD_USER } from "~/graphql/mutation";
+import { addUserSchema } from "~/schema/formsSchema";
 
 definePageMeta({
   layout: "dashboard-layout",
 });
-
-const query = gql`
-  mutation addUser(
-    $name: String!
-    $email: String!
-    $password: String!
-    $role: Role!
-    $avatar: String!
-  ) {
-    addUser(
-      data: {
-        name: $name
-        email: $email
-        password: $password
-        role: $role
-        avatar: $avatar
-      }
-    ) {
-      id
-    }
-  }
-`;
 
 enum Role {
   Admin = "admin",
@@ -229,17 +214,7 @@ const role = ref<Role>();
 const userAdded = ref<string>("");
 const error = ref<string>("");
 
-const { mutate, onDone, loading, onError } = useMutation(query);
-
-const addUserSchema = object({
-  firstname: string().required("Field is required"),
-  lastname: string().required("Field is required"),
-  email: string().email().required("Field is required"),
-  password: string()
-    .required("Field is required")
-    .min(8, "password must be at least 8 characters"),
-  role: string().required("Field is required"),
-});
+const { mutate, onDone, loading, onError } = useMutation(ADD_USER);
 
 const { defineInputBinds, values, errorBag, handleSubmit } = useForm({
   validationSchema: addUserSchema,

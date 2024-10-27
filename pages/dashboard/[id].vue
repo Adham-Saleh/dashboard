@@ -17,7 +17,7 @@
             <span v-if="false">Unblock</span>
             <span>block</span>
           </el-button>
-          <el-button>
+          <el-button :loading="loading" @click="deleteUser">
             <i class="bi bi-trash me-2"></i>
             Delete
           </el-button>
@@ -25,7 +25,7 @@
             <i class="bi bi-three-dots-vertical"></i>
           </el-button>
         </div>
-      </div> 
+      </div>
       <div v-if="!user">
         {{ error }}
       </div>
@@ -85,25 +85,31 @@
 </template>
 
 <script setup>
+import { GET_USER } from "~/graphql/query";
+import { DELETE_USER } from "~/graphql/mutation";
+
 definePageMeta({
   layout: "dashboard-layout",
 });
 const id = ref(useRoute().params.id);
 const activeName = ref("first");
-const query = gql`
-  query getUser($id: ID!) {
-    user(id: $id) {
-      name
-      avatar
-      id
-      email
-      role
-    }
-  }
-`;
 
-const { data, error, refresh } = await useAsyncQuery(query, { id: id.value });
+
+const { data, error, refresh } = await useAsyncQuery(GET_USER, {
+  id: id.value,
+});
 const { user } = data.value;
+
+const { mutate, onDone, loading } = useMutation(DELETE_USER);
+const deleteUser = function () {
+  mutate({
+    id: id.value,
+  });
+
+  onDone(() => {
+    navigateTo("/dashboard");
+  });
+};
 </script>
 
 <style scoped>

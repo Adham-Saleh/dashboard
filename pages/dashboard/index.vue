@@ -24,7 +24,7 @@
           @tab-click="handleClick"
         >
           <el-tab-pane label="Active users" name="first">
-            <usersTable :loading="!users" v-if="users" :users="users" />
+            <usersTable :loading="!users" v-if="users" :users="users" :total="users.length" />
           </el-tab-pane>
           <el-tab-pane label="Blocked users" name="second"
             ><usersTable
@@ -37,39 +37,26 @@
 
 <script setup lang="ts">
 import type { TabsPaneContext } from "element-plus";
+import { GET_ALL_USERS } from "~/graphql/query";
 
 definePageMeta({
   layout: "dashboard-layout",
 });
 
-const page = ref<number>(1);
+const cookie = useCookie("page");
 
-const activeName = ref<string>("first");
+const activeName = ref<string>(cookie.value || "first");
 const handleClick = (tab: TabsPaneContext, event: Event) => {
-  console.log(tab, event);
+  cookie.value = tab.props.name;
 };
 
-const query = gql`
-  query {
-    users {
-      id
-      name
-      avatar
-      email
-      role
-      creationAt
-    }
-  }
-`;
-
-const { data } = await useAsyncQuery<any>(query);
+const { data } = await useAsyncQuery<any>(GET_ALL_USERS);
 
 const { users } = data.value;
 
 const navigateToAddUser = function () {
-  navigateTo('/dashboard/adduser')
-}
-
+  navigateTo("/dashboard/adduser");
+};
 </script>
 
 <style scoped>

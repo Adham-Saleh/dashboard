@@ -3,7 +3,11 @@
     <div class="container p-0">
       <div class="row">
         <div class="col-lg-6 align-items-center">
-          <el-input style="width: 400px; height: 44px" placeholder="Search">
+          <el-input
+            style="width: 400px; height: 44px"
+            v-model="search"
+            placeholder="Search"
+          >
             <template #prefix>
               <el-icon class="el-input__icon">
                 <i class="bi bi-search"></i>
@@ -61,8 +65,16 @@
               </el-table-column>
               <el-table-column property="email" label="Email" width="180" />
               <el-table-column property="name" label="Name" width="180" />
-              <el-table-column label="Mobile Number" width="180" />
-              <el-table-column property="region" label="Region" width="180" />
+              <el-table-column label="Mobile number" width="180">
+                <template #default="scope">
+                  01110089669
+                </template>
+              </el-table-column>
+              <el-table-column label="Region" width="180">
+                <template #default="scope">
+                  Cairo, Egypt
+                </template>
+              </el-table-column>
               <el-table-column
                 property="creationAt"
                 label="Created at"
@@ -88,7 +100,7 @@
               <div class="example-pagination-block">
                 <el-pagination
                   layout="prev, pager, next"
-                  :total="50"
+                  :total="Math.ceil(total / 7) * 10"
                   v-model="page"
                   v-if="users"
                   @current-change="handlePageChange"
@@ -107,8 +119,11 @@
 import type { TableInstance } from "element-plus";
 import type { User } from "@/types/UserData";
 
-const props = defineProps(["users"]);
-const page = ref<number>(1);
+const props = defineProps(["users", "total"]);
+
+const search = ref("");
+const cookie = useCookie("usersPage");
+const page = ref<number>(+cookie.value || 1);
 
 const multipleTableRef = ref<TableInstance>();
 const multipleSelection = ref<User[]>([]);
@@ -119,15 +134,20 @@ const handleSelectionChange = (val: User[]) => {
 
 const tableData: User[] = props.users;
 
-const paginatedUsers = computed(() => {
+let paginatedUsers = computed(() => {
   const usersArray = props.users || [];
+  const filteredUsers = usersArray.filter((user: any) =>
+    user.name.toLowerCase().includes(search.value.toLowerCase())
+  );
+
   const start = (page.value - 1) * 7;
   const end = page.value * 7;
-  return usersArray.slice(start, end);
+  return filteredUsers.slice(start, end);
 });
 
 const handlePageChange = function (newPage: number) {
   page.value = newPage;
+  cookie.value = newPage;
 };
 </script>
 

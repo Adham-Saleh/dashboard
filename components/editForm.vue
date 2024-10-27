@@ -76,6 +76,8 @@
 </template>
 
 <script setup lang="ts">
+import { UPDATE_USER } from "~/graphql/mutation";
+
 const props = defineProps(["user"]);
 const dialogVisible = ref(false);
 const errorLabel = ref(false);
@@ -90,18 +92,7 @@ enum Role {
   customer = "customer",
 }
 
-const query = gql`
-  mutation updateUser($id: ID!, $name: String, $email: String, $role: Role) {
-    updateUser(id: $id, changes: { name: $name, email: $email, role: $role }) {
-      id
-      name
-      email
-      role
-    }
-  }
-`;
-
-const { mutate, onDone, onError } = useMutation(query);
+const { mutate, onDone, onError } = useMutation(UPDATE_USER);
 
 const isValid = function () {
   if (!email.value && !role.value && !username.value) {
@@ -120,7 +111,6 @@ const updateUser = function () {
 };
 
 const handleSubmit = function () {
-  console.log("form submited");
   if (!isValid()) {
     errorLabel.value = true;
     return;

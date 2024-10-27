@@ -179,6 +179,7 @@
 
 <script setup lang="ts">
 import { object, string } from "yup";
+import { signupSchema } from "~/schema/formsSchema";
 
 const username = ref<string>("");
 const email = ref<string>("");
@@ -191,18 +192,10 @@ const toogleLoginPage = function (): void {
 };
 
 // signup form validation
-const SignupSchema = object({
-  username: string().required("Field is required"),
-  email: string()
-    .email("Please enter a valid email")
-    .required("Field is required"),
-  password: string()
-    .required("Field is required")
-    .min(8, "Your password is not strong enough. Use at least 8 characters"),
-});
+
 
 const { defineInputBinds, values, errorBag, handleSubmit } = useForm({
-  validationSchema: SignupSchema,
+  validationSchema: signupSchema,
 });
 
 const getError = function (name: string) {
