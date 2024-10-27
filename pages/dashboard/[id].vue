@@ -25,7 +25,7 @@
             <i class="bi bi-three-dots-vertical"></i>
           </el-button>
         </div>
-      </div>
+      </div> 
       <div v-if="!user">
         {{ error }}
       </div>

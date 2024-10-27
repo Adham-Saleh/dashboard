@@ -12,6 +12,7 @@
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
     "@vee-validate/nuxt": "^4.14.4",
+    "@vee-validate/yup": "^4.14.6",
     "@vue/apollo-composable": "^4.2.1",
     "bootstrap-icons": "^1.11.3",
     "firebase": "^11.0.1",
