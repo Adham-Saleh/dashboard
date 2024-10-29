@@ -2,16 +2,26 @@
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   devtools: { enabled: true },
-  modules: ["@element-plus/nuxt", "@vee-validate/nuxt", "@nuxtjs/apollo"],
+  modules: [
+    "@element-plus/nuxt",
+    "@vee-validate/nuxt",
+    "nuxt-graphql-client",
+    "@pinia/nuxt",
+  ],
   elementPlus: {
     /** Options */
   },
-  apollo: {
-    clients: {
-      default: {
-        httpEndpoint: "https://api.escuelajs.co/graphql",
-      },
+  runtimeConfig: {
+    public: {
+      GQL_HOST: "https://api.escuelajs.co/graphql",
     },
+  },
+  "graphql-client": {
+    watch: true,
+    autoImport: true,
+    functionPrefix: "Gql",
+    documentPaths: ["./graphql"],
+    preferGETQueries: false,
   },
   plugins: ["~/plugins/element-plus.js"],
   css: ["bootstrap-icons/font/bootstrap-icons.css", "~/assets/global.css"],

@@ -7,3 +7,15 @@ export interface User {
   creationAt: string;
   role: string;
 }
+
+enum Role {
+  admin = "admin",
+  customer = "customer",
+}
+
+export interface userUpdate {
+  id: string;
+  name: string;
+  email: string;
+  role: Role;
+}

@@ -209,8 +209,8 @@ const passwordValue = defineInputBinds("password");
 
 // handling form submission
 const formSubmit = handleSubmit(async () => {
-  await signup(username.value, email.value, password.value);
-  navigateTo("/dashboard");
+  const res = await signup(username.value, email.value, password.value);
+  if (!error.value) navigateTo("/dashboard");
   username.value = "";
   email.value = "";
   password.value = "";

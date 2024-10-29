@@ -76,23 +76,19 @@
 </template>
 
 <script setup lang="ts">
-import { UPDATE_USER } from "~/graphql/mutation";
-
 const props = defineProps(["user"]);
 const dialogVisible = ref(false);
 const errorLabel = ref(false);
-
-const id = ref<string | null>(props.user.id);
-const email = ref<string | null>(props.user.email);
-const role = ref<string | null>(props.user.role);
-const username = ref<string>(props.user.name);
 
 enum Role {
   admin = "admin",
   customer = "customer",
 }
 
-const { mutate, onDone, onError } = useMutation(UPDATE_USER);
+const id = ref<string>(props.user.id);
+const email = ref<string | null>(props.user.email);
+const role = ref<Role>(props.user.role);
+const username = ref<string>(props.user.name);
 
 const isValid = function () {
   if (!email.value && !role.value && !username.value) {
@@ -101,13 +97,15 @@ const isValid = function () {
   return true;
 };
 
-const updateUser = function () {
-  mutate({
-    id: id.value,
-    name: username.value,
-    email: email.value,
-    role: role.value === "admin" ? Role.admin : Role.customer,
-  });
+const updateUser = async function () {
+  const { data } = await useAsyncData("updateUser", () =>
+    GqlUpdateUser({
+      id: id.value,
+      name: username.value,
+      email: email.value,
+      role: role.value === "admin" ? Role.admin : Role.customer,
+    })
+  );
 };
 
 const handleSubmit = function () {

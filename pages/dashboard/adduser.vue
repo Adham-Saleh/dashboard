@@ -148,6 +148,7 @@
                 action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
                 multiple
                 style="width: 408px"
+                :before-upload="handleImage"
               >
                 <el-icon class="el-icon--upload"
                   ><svg
@@ -194,7 +195,6 @@
 
 <script setup lang="ts">
 import { string, object } from "yup";
-import { ADD_USER } from "~/graphql/mutation";
 import { addUserSchema } from "~/schema/formsSchema";
 
 definePageMeta({
@@ -213,8 +213,7 @@ const password = ref<string>("");
 const role = ref<Role>();
 const userAdded = ref<string>("");
 const error = ref<string>("");
-
-const { mutate, onDone, loading, onError } = useMutation(ADD_USER);
+const urlImage = ref<any>("");
 
 const { defineInputBinds, values, errorBag, handleSubmit } = useForm({
   validationSchema: addUserSchema,
@@ -231,18 +230,29 @@ const getError = function (name: string) {
   return err ? err[0] : false;
 };
 
-const formSubmit = handleSubmit(() => {
+const handleImage = async function (file: any) {
+  const { error, url, uploadImg } = useStorage();
+  await uploadImg(file);
+  urlImage.value = url.value;
+};
+
+const loading = ref<boolean>(false);
+const formSubmit = handleSubmit(async () => {
   userAdded.value = "";
-  mutate({
-    name: `${firstName.value} ${lastName.value}`,
-    email: email.value,
-    password: password.value,
-    role: role.value === "admin" ? Role.Admin : Role.Customer,
-    avatar: "https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15",
-  });
-  onDone((res: any) => {
-    userAdded.value = res.data.addUser.id;
-  });
+  loading.value = true;
+  const { data, pending } = await useAsyncData("addUser", () =>
+    GqlAddUser({
+      name: `${firstName.value} ${lastName.value}`,
+      email: email.value,
+      password: password.value,
+      role: role.value === "admin" ? Role.Admin : Role.Customer,
+      avatar: urlImage.value,
+    })
+  );
+  loading.value = false;
+  if (!pending.value) {
+    userAdded.value = data.value?.addUser.id;
+  }
 });
 </script>
 

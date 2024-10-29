@@ -1,0 +1,76 @@
+query GetUsers {
+  users {
+    id
+    name
+    avatar
+    email
+    role
+    creationAt
+  }
+}
+
+query GetUser($id: ID!) {
+  user(id: $id) {
+    name
+    avatar
+    id
+    email
+    role
+  }
+}
+
+query AuthorizeUser {
+  myProfile {
+    id
+    name
+    avatar
+  }
+}
+
+mutation AddUser(
+  $name: String!
+  $email: String!
+  $password: String!
+  $role: Role!
+  $avatar: String!
+) {
+  addUser(
+    data: {
+      name: $name
+      email: $email
+      password: $password
+      role: $role
+      avatar: $avatar
+    }
+  ) {
+    id
+  }
+}
+
+mutation UpdateUser($id: ID!, $name: String, $email: String, $role: Role) {
+  updateUser(id: $id, changes: { name: $name, email: $email, role: $role }) {
+    id
+    name
+    email
+    role
+  }
+}
+
+mutation DeleteUser($id: ID!) {
+  deleteUser(id: $id)
+}
+
+mutation UserLogin($email: String!, $password: String!) {
+  login(email: $email, password: $password) {
+    access_token
+    refresh_token
+  }
+}
+
+mutation UserSignup($name: String!, $email: String!, $password: String! $avatar: String!) {
+  addUser(data: { name: $name email: $email password: $password avatar: $avatar}) {
+    id
+    name
+    avatar
+  }
+}

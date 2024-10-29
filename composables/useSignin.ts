@@ -1,8 +1,10 @@
 import { projectAuth } from "~/firebase/config";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { useUserStore } from "~/store/userStore";
 
 const error = ref<null | string>();
 const isLoading = ref<boolean>(false);
+const userStore = useUserStore()
 
 const signup = async function (
   username: string,
@@ -14,19 +16,24 @@ const signup = async function (
 
   try {
     isLoading.value = true;
-    const res = await createUserWithEmailAndPassword(
-      projectAuth,
-      email,
-      password
+    // handle the signup to the user view
+    const {data, pending, error} = await useAsyncData("userSignup", () =>
+      GqlUserSignup({
+        name: username,
+        email: email,
+        password: password,
+        avatar: 'https://i.imgur.com/LDOO4Qs.jpg'
+      })
     );
-    await updateProfile(res.user, { displayName: username });
 
     error.value = null;
     isLoading.value = false;
-    return res;
+    userStore.user = data.value?.addUser;
+
+    return data;
   } catch (err: any) {
-    console.log(err.message)
-    error.value = err.code;
+    console.log(err.message);
+    error.value = "Cannot create account at this time please try again later";
     isLoading.value = false;
   }
 };

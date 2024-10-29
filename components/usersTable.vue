@@ -66,20 +66,22 @@
               <el-table-column property="email" label="Email" width="180" />
               <el-table-column property="name" label="Name" width="180" />
               <el-table-column label="Mobile number" width="180">
-                <template #default="scope">
-                  01110089669
-                </template>
+                <template #default="scope"> 01110089669 </template>
               </el-table-column>
               <el-table-column label="Region" width="180">
+                <template #default="scope"> Cairo, Egypt </template>
+              </el-table-column>
+              <el-table-column label="Created At" width="180">
                 <template #default="scope">
-                  Cairo, Egypt
+                  {{
+                    new Date(scope.row.creationAt).toLocaleString("en-US", {
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    })
+                  }}
                 </template>
               </el-table-column>
-              <el-table-column
-                property="creationAt"
-                label="Created at"
-                width="180"
-              />
               <el-table-column fixed="right" min-width="50">
                 <template #default>
                   <el-button
@@ -96,16 +98,21 @@
                 </template>
               </el-table-column>
             </el-table>
-            <div style="" class="d-flex justify-content-center p-3">
+            <div style="" class="d-flex justify-content-between p-3">
+              <el-button @click="page > 1 && handlePageChange(page - 1)" :disabled="page==1"
+                >Previous</el-button
+              >
               <div class="example-pagination-block">
                 <el-pagination
                   layout="prev, pager, next"
                   :total="Math.ceil(total / 7) * 10"
                   v-model="page"
                   v-if="users"
+                  :current-page="page"
                   @current-change="handlePageChange"
                 />
               </div>
+              <el-button @click="page < Math.ceil(total / 7) && handlePageChange(page + 1)" :disabled="page >= Math.ceil(total / 7)">Next</el-button>
             </div>
           </div>
         </div>
@@ -115,15 +122,15 @@
 </template>
 
 <script setup lang="ts">
-// table info
 import type { TableInstance } from "element-plus";
 import type { User } from "@/types/UserData";
 
 const props = defineProps(["users", "total"]);
-
+const router = useRouter();
+const route = useRoute();
 const search = ref("");
-const cookie = useCookie("usersPage");
-const page = ref<number>(+cookie.value || 1);
+const page = ref<number>( Number(route.query.page) || 1);
+
 
 const multipleTableRef = ref<TableInstance>();
 const multipleSelection = ref<User[]>([]);
@@ -147,8 +154,20 @@ let paginatedUsers = computed(() => {
 
 const handlePageChange = function (newPage: number) {
   page.value = newPage;
-  cookie.value = newPage;
+  router.push({
+    query: {
+      ...route.query,
+      page: newPage, // Update the 'page' parameter to '1'
+    },
+  });
 };
+
+watch(
+  () => route.query.page,
+  (newPage: any) => {
+    page.value = +newPage;
+  }
+);
 </script>
 
 <style scoped>

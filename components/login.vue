@@ -142,13 +142,14 @@
 <script setup lang="ts">
 import { string, object } from "yup";
 import { loginSchema } from "~/schema/formsSchema";
+import { useUserStore } from "~/store/userStore";
 
 const email = ref("adhamsaleh055@gmail.com");
 const password = ref("saleh100200");
 
-const { login, isLoading, error } = useLogin();
+const userStore = useUserStore();
 
-// validating login form
+const { getToken, authorizeUser, isLoading, error } = useLogin();
 
 const { defineInputBinds, values, errorBag, handleSubmit } = useForm({
   validationSchema: loginSchema,
@@ -168,8 +169,31 @@ const toggleSignupPage = function (): void {
 };
 
 const formSubmit = handleSubmit(async () => {
-  await login(email.value, password.value);
-  if (!error.value) navigateTo("/dashboard");
+  isLoading.value = false;
+  try {
+    isLoading.value = true;
+    const { access_token: accessToken }: any = await getToken(
+      email.value,
+      password.value
+    );
+    if (!accessToken) throw Error;
+    const res = await authorizeUser(accessToken);
+    isLoading.value = false;
+    const currentUser = {
+      id: res?.value?.myProfile.id,
+      name: res?.value?.myProfile.name,
+      email: res?.value?.myProfile.avatar,
+    };
+    userStore.setUser(currentUser);
+
+    localStorage.setItem('user', JSON.stringify(currentUser));
+    isLoading.value = false;
+    error.value = null;
+    navigateTo("/dashboard");
+  } catch (err) {
+    error.value = "Invalid cardentials";
+    isLoading.value = false;
+  }
 });
 </script>
 

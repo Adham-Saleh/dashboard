@@ -5,7 +5,10 @@
         <div>
           <ul class="mt-5">
             <li class="list-unstyled">
-              <NuxtLink to="/home" class="d-flex gap-2 text-decoration-none text-black">
+              <NuxtLink
+                to="/home"
+                class="d-flex gap-2 text-decoration-none text-black"
+              >
                 <svg
                   width="18"
                   height="19"
@@ -22,7 +25,10 @@
               </NuxtLink>
             </li>
             <li class="list-unstyled">
-              <NuxtLink to="/dashboard" class="d-flex gap-2 text-decoration-none text-black">
+              <NuxtLink
+                to="/dashboard"
+                class="d-flex gap-2 text-decoration-none text-black"
+              >
                 <svg
                   width="20"
                   height="20"
@@ -40,7 +46,10 @@
               </NuxtLink>
             </li>
             <li class="list-unstyled">
-              <NuxtLink to="/experts" class="d-flex gap-2 text-decoration-none text-black">
+              <NuxtLink
+                to="/experts"
+                class="d-flex gap-2 text-decoration-none text-black"
+              >
                 <svg
                   width="22"
                   height="22"
@@ -92,7 +101,8 @@
               </NuxtLink>
             </li>
             <li class="list-unstyled">
-              <NuxtLink to="/rooms"
+              <NuxtLink
+                to="/rooms"
                 class="d-flex gap-2 mt-3 text-decoration-none text-black"
               >
                 <svg
@@ -148,15 +158,11 @@
           </ul>
         </div>
         <div class="position-fixed bottom-0 p-2 d-flex justify-content-between">
-          <div class="d-flex gap-1">
-            <el-avatar class="my-auto">
-              <h3 class="my-auto">
-                <i class="bi bi-person-circle"></i>
-              </h3>
-            </el-avatar>
-            <div v-if="user">
+          <div class="d-flex gap-1" v-if="userStore.user">
+            <el-avatar class="my-auto" :src="userStore.user.avatar" />
+            <div>
               <p class="my-auto p-0 fw-bold" style="font-size: 14px">
-                {{ user.displayName }}
+                {{ userStore.user.name }}
               </p>
               <p class="my-auto p-0 text-muted" style="font-size: 14px">
                 Super admin
@@ -191,8 +197,8 @@
 </template>
 
 <script setup>
-const { user } = getUser();
-const { logout, error, isLoading } = useLogout();
+import { useUserStore } from "~/store/userStore";
+const userStore = useUserStore();
 
 const handleLogout = async function () {
   await logout();
@@ -204,5 +210,4 @@ const handleLogout = async function () {
 .router-link-exact-active {
   text-decoration: underline;
 }
-
 </style>
