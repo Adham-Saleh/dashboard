@@ -193,7 +193,6 @@ const toogleLoginPage = function (): void {
 
 // signup form validation
 
-
 const { defineInputBinds, values, errorBag, handleSubmit } = useForm({
   validationSchema: signupSchema,
 });

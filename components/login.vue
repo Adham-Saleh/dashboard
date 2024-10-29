@@ -146,8 +146,7 @@ import { useUserStore } from "~/store/userStore";
 
 const email = ref("adhamsaleh055@gmail.com");
 const password = ref("saleh100200");
-
-const userStore = useUserStore();
+const cookie = useCookie('user')
 
 const { getToken, authorizeUser, isLoading, error } = useLogin();
 
@@ -184,9 +183,8 @@ const formSubmit = handleSubmit(async () => {
       name: res?.value?.myProfile.name,
       email: res?.value?.myProfile.avatar,
     };
-    userStore.setUser(currentUser);
+    cookie.value  = currentUser
 
-    localStorage.setItem('user', JSON.stringify(currentUser));
     isLoading.value = false;
     error.value = null;
     navigateTo("/dashboard");

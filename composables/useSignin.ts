@@ -4,7 +4,6 @@ import { useUserStore } from "~/store/userStore";
 
 const error = ref<null | string>();
 const isLoading = ref<boolean>(false);
-const userStore = useUserStore()
 
 const signup = async function (
   username: string,
@@ -28,7 +27,6 @@ const signup = async function (
 
     error.value = null;
     isLoading.value = false;
-    userStore.user = data.value?.addUser;
 
     return data;
   } catch (err: any) {

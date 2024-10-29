@@ -158,11 +158,11 @@
           </ul>
         </div>
         <div class="position-fixed bottom-0 p-2 d-flex justify-content-between">
-          <div class="d-flex gap-1" v-if="userStore.user">
-            <el-avatar class="my-auto" :src="userStore.user.avatar" />
+          <div class="d-flex gap-1" v-if="user">
+            <el-avatar class="my-auto" :src="user.avatar" />
             <div>
               <p class="my-auto p-0 fw-bold" style="font-size: 14px">
-                {{ userStore.user.name }}
+                {{ user.name }}
               </p>
               <p class="my-auto p-0 text-muted" style="font-size: 14px">
                 Super admin
@@ -197,11 +197,10 @@
 </template>
 
 <script setup>
-import { useUserStore } from "~/store/userStore";
-const userStore = useUserStore();
+const user = useCookie("user");
 
 const handleLogout = async function () {
-  await logout();
+  user.value = null;
   navigateTo("/");
 };
 </script>
