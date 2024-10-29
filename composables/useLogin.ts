@@ -27,7 +27,6 @@ const authorizeUser = async function (token: String) {
       const res = await GqlAuthorizeUser();
       return res;
     });
-
     return data;
   } catch (err) {
     error.value = "Invalid cerdinitals";

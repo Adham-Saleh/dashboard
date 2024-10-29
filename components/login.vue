@@ -12,7 +12,7 @@
               <el-input
                 v-model="email"
                 v-bind="emailValue"
-                style="width: 404px; height: 56px"
+                style="height: 56px"
                 placeholder="email"
               >
                 <template #prefix>
@@ -50,7 +50,7 @@
               <el-input
                 v-model="password"
                 v-bind="passwordValue"
-                style="width: 404px; height: 56px"
+                style="height: 56px"
                 placeholder="password"
                 type="password"
                 show-password
@@ -113,7 +113,7 @@
               <el-button
                 type="info"
                 native-type="submit"
-                style="width: 404px; height: 56px; border-radius: 100px"
+                style="width: 404px; max-width: 100%; height: 56px; border-radius: 100px"
                 round
                 :loading="isLoading"
                 >Sign In</el-button

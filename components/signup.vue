@@ -184,6 +184,7 @@ import { signupSchema } from "~/schema/formsSchema";
 const username = ref<string>("");
 const email = ref<string>("");
 const password = ref<string>("");
+const cookie = useCookie("user");
 const { signup, isLoading, error } = useSignin();
 
 const emit = defineEmits(["toogleLoginPage"]);
@@ -210,6 +211,7 @@ const passwordValue = defineInputBinds("password");
 const formSubmit = handleSubmit(async () => {
   const res = await signup(username.value, email.value, password.value);
   if (!error.value) navigateTo("/dashboard");
+  cookie.value = res?.value?.addUser;
   username.value = "";
   email.value = "";
   password.value = "";

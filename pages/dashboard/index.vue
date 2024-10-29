@@ -75,4 +75,14 @@ const navigateToAddUser = function () {
   width: 122px;
   height: 40px;
 }
+
+::v-deep .demo-tabs .el-tabs__item.is-active {
+  color: #EF3E2C;
+}
+
+::v-deep .demo-tabs .el-tabs__active-bar {
+  background-color: #EF3E2C;
+  height: 2px; 
+}
+
 </style>

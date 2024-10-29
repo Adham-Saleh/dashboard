@@ -54,28 +54,30 @@
                 <editForm :user="user" />
               </div>
             </div>
-            <div class="row">
-              <p class="fw-bolder" style="font-size: 20px">Account info</p>
-            </div>
-            <div class="row">
-              <p class="m-0 fw-bold" style="font-size: 16px">Name</p>
-              <p class="text-muted" style="font-size: 14px">
-                {{ user.name }}
-              </p>
-              <el-divider class="m-0 w-75" />
-            </div>
-            <div class="row mt-4">
-              <p class="m-0 fw-bold" style="font-size: 16px">Email</p>
-              <p class="text-muted" style="font-size: 14px">
-                {{ user.email }}
-              </p>
-              <el-divider class="m-0 w-75" />
-            </div>
-            <div class="row mt-4">
-              <p class="m-0 fw-bold" style="font-size: 16px">Role</p>
-              <p class="text-muted" style="font-size: 14px">
-                {{ user.role }}
-              </p>
+            <div class="px-4">
+              <div class="row">
+                <p class="fw-bolder" style="font-size: 20px">Account info</p>
+              </div>
+              <div class="row">
+                <p class="m-0 fw-bold" style="font-size: 16px">Name</p>
+                <p class="text-muted" style="font-size: 14px">
+                  {{ user.name }}
+                </p>
+                <el-divider class="m-0 w-75" />
+              </div>
+              <div class="row mt-4">
+                <p class="m-0 fw-bold" style="font-size: 16px">Email</p>
+                <p class="text-muted" style="font-size: 14px">
+                  {{ user.email }}
+                </p>
+                <el-divider class="m-0 w-75" />
+              </div>
+              <div class="row mt-4">
+                <p class="m-0 fw-bold" style="font-size: 16px">Role</p>
+                <p class="text-muted" style="font-size: 14px">
+                  {{ user.role }}
+                </p>
+              </div>
             </div>
           </el-tab-pane>
         </el-tabs>
@@ -118,4 +120,15 @@ const deleteUser = async function () {
   width: 122px;
   height: 40px;
 }
+
+::v-deep .demo-tabs .el-tabs__item.is-active {
+  color: #ef3e2c;
+}
+
+::v-deep .demo-tabs .el-tabs__active-bar {
+  background-color: #ef3e2c;
+  height: 2px;
+}
+
+
 </style>

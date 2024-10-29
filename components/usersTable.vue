@@ -3,7 +3,7 @@
     <div class="container p-0">
       <div class="row">
         <div class="col-lg-6 align-items-center">
-          <el-input
+          <el-input class="inputField"
             style="width: 400px; height: 44px"
             v-model="search"
             placeholder="Search"
@@ -18,7 +18,7 @@
         <div
           class="col-lg-6 justify-content-lg-end mt-2 mt-lg-0 justify-content-start d-flex gap-2 align-items-center"
         >
-          <el-date-picker type="date" placeholder="Pick a day" />
+          <el-date-picker class="inputField" type="date" placeholder="Pick a day" />
           <el-button>
             <i class="bi bi-download me-1"></i>
             Export
@@ -40,6 +40,7 @@
               :data="paginatedUsers"
               style="width: 100%"
               @selection-change="handleSelectionChange"
+              @row-click="handleRowClick"
             >
               <el-table-column type="selection" width="55" class="bg-light" />
               <el-table-column label="Name" width="180">
@@ -100,7 +101,7 @@
             </el-table>
             <div style="" class="d-flex justify-content-between p-3">
               <el-button @click="page > 1 && handlePageChange(page - 1)" :disabled="page==1"
-                >Previous</el-button
+                ><i class="bi bi-arrow-left me-2"></i>Previous</el-button
               >
               <div class="example-pagination-block">
                 <el-pagination
@@ -112,7 +113,7 @@
                   @current-change="handlePageChange"
                 />
               </div>
-              <el-button @click="page < Math.ceil(total / 7) && handlePageChange(page + 1)" :disabled="page >= Math.ceil(total / 7)">Next</el-button>
+              <el-button @click="page < Math.ceil(total / 7) && handlePageChange(page + 1)" :disabled="page >= Math.ceil(total / 7)">Next<i class="bi bi-arrow-right ms-2"></i></el-button>
             </div>
           </div>
         </div>
@@ -168,10 +169,18 @@ watch(
     page.value = +newPage;
   }
 );
+
+const handleRowClick = function (row:any) {
+  navigateTo(`/dashboard/${row.id}`)
+}
+
 </script>
 
 <style scoped>
 .el-button {
   border-radius: 8px;
 }
+
+
+
 </style>

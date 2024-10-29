@@ -2,12 +2,12 @@
   <div class="vh-100">
     <div class="container-fluid h-100">
       <div class="row h-100">
-        <div class="col-md-6">
+        <div class="col-md-6 d-none d-lg-block">
           <div class="w-100 h-100 background">
             <div class="w-75 h-75 centered-circle"></div>
           </div>
         </div>
-        <div class="col-md-6 d-flex align-items-center justify-content-center">
+        <div class="col-lg-6 d-flex align-items-center justify-content-center">
           <login v-if="loginPage" @toogleLoginPage="handlePageView" />
           <signup v-if="!loginPage" @toogleLoginPage="handlePageView" />
         </div>
