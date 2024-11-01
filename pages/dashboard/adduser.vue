@@ -16,7 +16,7 @@
                 Add photo and personal details here
               </p>
             </div>
-            <div>
+            <div class="d-flex d-md-block gap-md-0">
               <el-button> Reset </el-button>
               <el-button type="danger" class="add-btn" @click="formSubmit">
                 Add
@@ -44,20 +44,13 @@
           </div>
           <div class="row">
             <div class="col-lg-4 my-auto fw-bold">Name</div>
-            <div class="col-lg-8">
+            <div class="col-lg-3">
               <el-input
-                style="width: 244px; height: 44px"
+                style="height: 44px"
                 placeholder="First name"
                 class="me-2"
                 v-model="firstName"
                 v-bind="firstNameValue"
-              />
-              <el-input
-                style="width: 244px; height: 44px"
-                placeholder="Last name"
-                class="mt-2 mt-lg-0"
-                v-model="lastName"
-                v-bind="lastNameValue"
               />
               <div
                 v-if="getError('firstname') || getError('lastname')"
@@ -68,12 +61,21 @@
                 First name and last name must be provided
               </div>
             </div>
+            <div class="col-lg-3">
+              <el-input
+                style="height: 44px"
+                placeholder="Last name"
+                class="mt-2 mt-lg-0"
+                v-model="lastName"
+                v-bind="lastNameValue"
+              />
+            </div>
           </div>
           <div class="row mt-3">
             <div class="col-lg-4 my-auto fw-bold">Email address</div>
-            <div class="col-lg-8">
+            <div class="col-lg-6">
               <el-input
-                style="width: 496px; height: 44px"
+                style="height: 44px"
                 placeholder="Email address"
                 class="me-2"
                 v-model="email"
@@ -91,9 +93,9 @@
           </div>
           <div class="row mt-3">
             <div class="col-lg-4 my-auto fw-bold">password</div>
-            <div class="col-lg-8">
+            <div class="col-lg-6">
               <el-input
-                style="width: 496px; height: 44px"
+                style="height: 44px"
                 placeholder="Password"
                 class="me-2"
                 v-model="password"
@@ -113,11 +115,11 @@
           </div>
           <div class="row mt-3">
             <div class="col-lg-4 my-auto fw-bold">Role</div>
-            <div class="col-lg-8">
+            <div class="col-lg-6">
               <el-select
                 placeholder="Select"
                 size="large"
-                style="width: 496px; height: 44px"
+                style="height: 44px"
                 v-model="role"
                 v-bind="roleValue"
               >
@@ -141,7 +143,10 @@
           <div class="row mt-3">
             <div class="col-lg-4 my-auto fw-bold">Photo</div>
             <div class="col-lg-8 d-flex gap-2">
-              <el-avatar :size="80" :src="urlImage ? urlImage : 'https://i.imgur.com/yhW6Yw1.jpg'" />
+              <el-avatar
+                :size="80"
+                :src="urlImage ? urlImage : 'https://i.imgur.com/yhW6Yw1.jpg'"
+              />
               <el-upload
                 class="upload-demo"
                 drag
