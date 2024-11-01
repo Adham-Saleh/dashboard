@@ -43,9 +43,9 @@
 <script setup lang="ts">
 import type { TabsPaneContext } from "element-plus";
 
-
 definePageMeta({
   layout: "dashboard-layout",
+  middleware: "dashboard-auth",
 });
 
 const cookie = useCookie("page");
@@ -55,10 +55,9 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
   cookie.value = tab.props.name;
 };
 
-const { data } = await useAsyncData('getUsers', () => GqlGetUsers())
+const { data } = await useAsyncData("getUsers", () => GqlGetUsers());
 
-const {users}:any = data.value
-
+const { users }: any = data.value;
 
 const navigateToAddUser = function () {
   navigateTo("/dashboard/adduser");
@@ -77,12 +76,11 @@ const navigateToAddUser = function () {
 }
 
 ::v-deep .demo-tabs .el-tabs__item.is-active {
-  color: #EF3E2C;
+  color: #ef3e2c;
 }
 
 ::v-deep .demo-tabs .el-tabs__active-bar {
-  background-color: #EF3E2C;
-  height: 2px; 
+  background-color: #ef3e2c;
+  height: 2px;
 }
-
 </style>

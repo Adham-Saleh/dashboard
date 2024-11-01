@@ -141,7 +141,7 @@
           <div class="row mt-3">
             <div class="col-lg-4 my-auto fw-bold">Photo</div>
             <div class="col-lg-8 d-flex gap-2">
-              <el-avatar :size="80" src="https://i.imgur.com/yhW6Yw1.jpg" />
+              <el-avatar :size="80" :src="urlImage ? urlImage : 'https://i.imgur.com/yhW6Yw1.jpg'" />
               <el-upload
                 class="upload-demo"
                 drag

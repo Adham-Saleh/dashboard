@@ -30,7 +30,7 @@
         {{ error }}
       </div>
       <div v-if="user">
-        <div class="row">
+        <div class="row mt-3 mt-md-0">
           <div class="d-flex gap-3">
             <el-avatar :size="120" :src="user.avatar ? user.avatar : null" />
             <div class="align-content-center">

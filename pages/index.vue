@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 definePageMeta({
-  middleware: "dashboard-auth",
+  middleware: 'auth'
 });
 
 const loginPage = ref<boolean>(false);

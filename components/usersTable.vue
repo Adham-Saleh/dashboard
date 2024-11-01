@@ -2,9 +2,9 @@
   <div>
     <div class="container p-0">
       <div class="row">
-        <div class="col-lg-6 align-items-center">
+        <div class="col-lg-6 col-md-2 align-items-center">
           <el-input class="inputField"
-            style="width: 400px; height: 44px"
+            style="max-width: 70%; height: 44px"
             v-model="search"
             placeholder="Search"
           >
@@ -99,8 +99,8 @@
                 </template>
               </el-table-column>
             </el-table>
-            <div style="" class="d-flex justify-content-between p-3">
-              <el-button @click="page > 1 && handlePageChange(page - 1)" :disabled="page==1"
+            <div style="" class="d-flex justify-content-center justify-content-md-between p-3">
+              <el-button @click="page > 1 && handlePageChange(page - 1)" class="d-none d-md-block" :disabled="page==1"
                 ><i class="bi bi-arrow-left me-2"></i>Previous</el-button
               >
               <div class="example-pagination-block">
@@ -113,7 +113,7 @@
                   @current-change="handlePageChange"
                 />
               </div>
-              <el-button @click="page < Math.ceil(total / 7) && handlePageChange(page + 1)" :disabled="page >= Math.ceil(total / 7)">Next<i class="bi bi-arrow-right ms-2"></i></el-button>
+              <el-button @click="page < Math.ceil(total / 7) && handlePageChange(page + 1)" class="d-none d-md-block" :disabled="page >= Math.ceil(total / 7)">Next<i class="bi bi-arrow-right ms-2"></i></el-button>
             </div>
           </div>
         </div>
