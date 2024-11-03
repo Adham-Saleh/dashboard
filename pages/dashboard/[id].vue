@@ -32,7 +32,7 @@
       <div v-if="user">
         <div class="row mt-3 mt-md-0">
           <div class="d-flex gap-3">
-            <el-avatar :size="120" :src="user.avatar ? user.avatar : null" />
+            <ImageFormat :size="120" :image="user.avatar ? user.avatar : null" />
             <div class="align-content-center">
               <p class="h3" :class="{ 'text-danger': false }">
                 <i v-if="false" class="bi bi-ban me-2"></i>{{ user.name }}

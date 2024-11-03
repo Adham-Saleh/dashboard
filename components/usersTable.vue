@@ -50,7 +50,7 @@
                       :to="`/dashboard/${scope.row.id}`"
                       class="d-flex text-decoration-none text-black"
                     >
-                      <el-avatar :src="scope.row.avatar" />
+                      <ImageFormat :image="scope.row.avatar" :size='50' />
                       <div>
                         <span style="margin-left: 10px">{{
                           scope.row.name

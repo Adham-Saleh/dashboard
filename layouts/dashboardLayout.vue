@@ -111,7 +111,7 @@
           </ul>
           <div class="d-flex justify-content-between p-3">
             <div class="d-flex gap-1" v-if="user">
-              <el-avatar class="my-auto" :src="user.avatar" />
+              <ImageFormat class="my-auto" :image="user.avatar" :size="50" />
               <div>
                 <p class="my-auto p-0 fw-bold" style="font-size: 14px">
                   {{ user.name }}
@@ -150,6 +150,8 @@
 </template>
 
 <script setup>
+import ImageFormat from '~/components/imageFormat.vue';
+
 const user = useCookie("user");
 const dashboardActive = ref(false);
 

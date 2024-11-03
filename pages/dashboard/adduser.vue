@@ -143,10 +143,12 @@
           <div class="row mt-3">
             <div class="col-lg-4 my-auto fw-bold">Photo</div>
             <div class="col-lg-8 d-flex gap-2">
-              <el-avatar
-                :size="80"
-                :src="urlImage ? urlImage : 'https://i.imgur.com/yhW6Yw1.jpg'"
-              />
+              <div class="img-container">
+                <imageFormat
+                  :size="80"
+                  :image="urlImage ? urlImage : 'https://i.imgur.com/yhW6Yw1.jpg'"
+                />
+              </div>
               <el-upload
                 class="upload-demo"
                 drag
@@ -270,5 +272,9 @@ const formSubmit = handleSubmit(async () => {
 
 .add-btn {
   background: linear-gradient(to right, #ef3e2c, #e71f63);
+}
+
+.img-container {
+  aspect-ratio: 1 / 1;
 }
 </style>

@@ -7,6 +7,7 @@ export default defineNuxtConfig({
     "@vee-validate/nuxt",
     "nuxt-graphql-client",
     "@pinia/nuxt",
+    "@nuxt/image",
   ],
   elementPlus: {
     /** Options */
