@@ -12,6 +12,9 @@ export default defineNuxtConfig({
   elementPlus: {
     /** Options */
   },
+  image: {
+    domains: ['firebasestorage.googleapis.com', 'fakeapi.platzi.com'],
+  },
   runtimeConfig: {
     public: {
       GQL_HOST: "https://api.escuelajs.co/graphql",

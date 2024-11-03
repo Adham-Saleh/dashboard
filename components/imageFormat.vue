@@ -1,12 +1,14 @@
 <template>
   <div>
     <div class="image-wrapper">
-      <!-- <div class="shimmer" v-if="!isLoaded"></div> -->
+      <div class="shimmer" v-if="!isLoaded"></div>
       <NuxtImg
         class="img-container"
         :width="size"
         :src="image"
-        placeholder=""
+        loading="lazy"
+        @load="loadingHandler"
+        placeholder="a"
         placeholder-class="wait"
       />
     </div>
@@ -16,12 +18,12 @@
 <script setup lang="ts">
 const props = defineProps(["size", "image"]);
 
-// const isLoaded = ref<boolean>(false);
+const isLoaded = ref<boolean>(false);
 
-// const loadingHandler = function () {
-//   console.log("image loaded");
-//   isLoaded.value = true;
-// };
+const loadingHandler = function () {
+  console.log("image loaded");
+  isLoaded.value = true;
+};
 </script>
 
 <style scoped>
@@ -50,10 +52,9 @@ const props = defineProps(["size", "image"]);
 
 .wait {
   background: rgb(184, 184, 184);
-  animation: lazy-loading 1s ease-in infinite;
 }
 
-/* .shimmer {
+.shimmer {
   position: absolute;
   top: 0;
   left: 0;
@@ -77,5 +78,5 @@ const props = defineProps(["size", "image"]);
   100% {
     background-position: 100% 0;
   }
-} */
+}
 </style>
