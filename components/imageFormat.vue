@@ -6,7 +6,7 @@
         class="img-container"
         :width="size"
         :src="image"
-        placeholder="aa"
+        placeholder=""
         placeholder-class="wait"
       />
     </div>
