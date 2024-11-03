@@ -1,12 +1,11 @@
 <template>
   <div>
     <div class="image-wrapper">
-      <div class="shimmer" v-if="!isLoaded"></div>
+      <!-- <div class="shimmer" v-if="!isLoaded"></div> -->
       <NuxtImg
         class="img-container"
         :width="size"
         :src="image"
-        @load="loadingHandler"
         placeholder="aa"
         placeholder-class="wait"
       />
@@ -17,11 +16,12 @@
 <script setup lang="ts">
 const props = defineProps(["size", "image"]);
 
-const isLoaded = ref<boolean>(false);
+// const isLoaded = ref<boolean>(false);
 
-const loadingHandler = function () {
-  isLoaded.value = true;
-};
+// const loadingHandler = function () {
+//   console.log("image loaded");
+//   isLoaded.value = true;
+// };
 </script>
 
 <style scoped>
@@ -30,7 +30,7 @@ const loadingHandler = function () {
     opacity: 1;
   }
   50% {
-    opacity: 0.2;
+    opacity: 0.5;
   }
   100% {
     opacity: 1;
@@ -48,11 +48,12 @@ const loadingHandler = function () {
   border-radius: 100%;
 }
 
-.custom {
+.wait {
+  background: rgb(184, 184, 184);
   animation: lazy-loading 1s ease-in infinite;
 }
 
-.shimmer {
+/* .shimmer {
   position: absolute;
   top: 0;
   left: 0;
@@ -66,7 +67,7 @@ const loadingHandler = function () {
   );
   background-size: 200% 100%;
   animation: shimmer 1s infinite;
-  border-radius: 100%; /* Match the image if it’s circular */
+  border-radius: 100%; 
 }
 
 @keyframes shimmer {
@@ -76,9 +77,5 @@ const loadingHandler = function () {
   100% {
     background-position: 100% 0;
   }
-}
-
-.wait {
-  background: rgb(184, 184, 184);
-}
+} */
 </style>
