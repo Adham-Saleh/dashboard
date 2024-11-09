@@ -68,7 +68,7 @@ const loadingHandler = function () {
   );
   background-size: 200% 100%;
   animation: shimmer 1s infinite;
-  border-radius: 100%; 
+  border-radius: 100%;
 }
 
 @keyframes shimmer {

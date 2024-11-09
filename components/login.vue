@@ -290,6 +290,11 @@ import { string, object } from "yup";
 import { loginSchema } from "~/schema/formsSchema";
 import { useUserStore } from "~/store/userStore";
 
+
+useHead({
+  title: 'login'
+})
+
 const email = ref("adhamsaleh055@gmail.com");
 const password = ref("saleh100200");
 const cookie = useCookie("user");

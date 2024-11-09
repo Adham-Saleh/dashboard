@@ -146,7 +146,9 @@
               <div class="img-container">
                 <imageFormat
                   :size="80"
-                  :image="urlImage ? urlImage : 'https://i.imgur.com/yhW6Yw1.jpg'"
+                  :image="
+                    urlImage ? urlImage : 'https://i.imgur.com/yhW6Yw1.jpg'
+                  "
                 />
               </div>
               <el-upload
@@ -206,6 +208,16 @@ import { addUserSchema } from "~/schema/formsSchema";
 
 definePageMeta({
   layout: "dashboard-layout",
+});
+
+useHead({
+  title: "dashboard app | Add user",
+  meta: [
+    {
+      name: "add user",
+      content: "add users flexibily without any delay or issues",
+    },
+  ],
 });
 
 enum Role {

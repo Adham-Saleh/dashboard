@@ -32,7 +32,10 @@
       <div v-if="user">
         <div class="row mt-3 mt-md-0">
           <div class="d-flex gap-3">
-            <ImageFormat :size="120" :image="user.avatar ? user.avatar : null" />
+            <ImageFormat
+              :size="120"
+              :image="user.avatar ? user.avatar : null"
+            />
             <div class="align-content-center">
               <p class="h3" :class="{ 'text-danger': false }">
                 <i v-if="false" class="bi bi-ban me-2"></i>{{ user.name }}
@@ -43,11 +46,7 @@
             </div>
           </div>
         </div>
-        <el-tabs
-          v-model="activeName"
-          class="demo-tabs mt-4"
-          @tab-click="handleClick"
-        >
+        <el-tabs v-model="activeName" class="demo-tabs mt-4">
           <el-tab-pane label="Account" name="first">
             <div class="row">
               <div class="d-flex justify-content-end">
@@ -90,6 +89,7 @@
 definePageMeta({
   layout: "dashboard-layout",
 });
+
 const id = ref(useRoute().params.id);
 const activeName = ref("first");
 
@@ -98,6 +98,23 @@ const { data } = await useAsyncData("getSingleUser", () =>
 );
 
 const { user } = data.value;
+
+useHead({
+  title: `${user.id} - ${user.name}`,
+  meta: [
+    {
+      name: "view user",
+      content: "view , edit and delete users faster than a photon",
+    },
+  ],
+});
+
+defineOgImage({
+  // url: user?.avatar || "",
+  html: `<div class="w-full h-full text-6xl flex justify-end items-end text-white" style="background: linear-gradient(to right, #ef3e2c, #e71f63);">
+            <div class="mb-20 mr-20">${user.id} - ${user.name}</div>
+          </div>`,
+});
 
 const pending = ref(false);
 const deleteUser = async function () {
@@ -129,6 +146,4 @@ const deleteUser = async function () {
   background-color: #ef3e2c;
   height: 2px;
 }
-
-
 </style>

@@ -1,0 +1,16 @@
+{
+  "home": {
+    "route_title": "Users",
+    "export_btn": "Export",
+    "add_user_btn": "Add User"
+  },
+  "table": {
+    "search_placeholder": "Search",
+    "date_placeholder": "pick a date",
+    "Active_users": "Active users",
+    "Blocked_users": "Blocked users",
+    "table_title": "All users",
+    "prv_btn": "Previous",
+    "next_btn": "Next"
+  }
+}

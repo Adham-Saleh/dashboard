@@ -43,9 +43,25 @@
 <script setup lang="ts">
 import type { TabsPaneContext } from "element-plus";
 
+defineOgImage({
+  html: `<div class="w-full h-full text-6xl flex justify-end items-end text-white" style="background: linear-gradient(to right, #ef3e2c, #e71f63);">
+            <div class="mb-20 mr-20">Dashboard App</div>
+          </div>`,
+});
+
 definePageMeta({
   layout: "dashboard-layout",
   middleware: "dashboard-auth",
+});
+
+useHead({
+  title: "dashboard app | Manage your users",
+  meta: [
+    {
+      name: "user statistics",
+      content: "see all existing users and handle your business",
+    },
+  ],
 });
 
 const cookie = useCookie("page");

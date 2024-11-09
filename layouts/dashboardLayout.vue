@@ -150,7 +150,7 @@
 </template>
 
 <script setup>
-import ImageFormat from '~/components/imageFormat.vue';
+import ImageFormat from "~/components/imageFormat.vue";
 
 const user = useCookie("user");
 const dashboardActive = ref(false);

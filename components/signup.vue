@@ -181,6 +181,10 @@
 import { object, string } from "yup";
 import { signupSchema } from "~/schema/formsSchema";
 
+useHead({
+  title: "signup",
+});
+
 const username = ref<string>("");
 const email = ref<string>("");
 const password = ref<string>("");

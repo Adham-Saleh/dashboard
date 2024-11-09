@@ -18,7 +18,18 @@
 
 <script setup lang="ts">
 definePageMeta({
-  middleware: 'auth'
+  middleware: "auth",
+});
+
+useHead({
+  title: "Manage your users",
+  titleTemplate: "dashboard app | %s",
+  meta: [
+    {
+      name: "description",
+      content: "Manage your users and apply CRUD ops faster that a photon",
+    },
+  ],
 });
 
 const loginPage = ref<boolean>(false);
